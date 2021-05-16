@@ -32,14 +32,21 @@ app.get('/api/notes', function(req, res) {
 
   //places inputted information into notes variable.
   app.post('/api/notes', function(req, res) {
-    const notes = req.body;
+    const newNote = req.body;
 
     //reads db.json file, parses information and pushes notes variable into the file.
     fs.readFile('db/db.json', (err, data) => {
       if (err) throw err;
       parsedData = JSON.parse(data);
-      parsedData.push(notes);
-      res.json(notes);
+      parsedData.push(newNote);
+      parsedData.forEach((note, index)=>{
+        note.id= 1
+        note.id++;
+        return parsedData;
+      })
+      res.json(newNote);
+     
+      
 
       //converts the json information to strings and then writes it to the page
       stringData = JSON.stringify(parsedData);
