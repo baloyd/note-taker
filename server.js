@@ -41,7 +41,12 @@ app.get('/api/notes', function(req, res) {
       parsedData.push(notes);
       res.json(notes);
 
-   
+      //converts the json information to strings and then writes it to the page
+      stringData = JSON.stringify(parsedData);
+
+      fs.writeFile('db/db.json', stringData, (err, data) => {
+        if (err) throw err;
+      });
     });
     
   });
