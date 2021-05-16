@@ -15,21 +15,25 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static('public'));
 
-//Sets default path to the contents of the index.html file.
-app.get('*', (req, res) => res.sendFile(path.join(__dirname, '/public/index.html')));
+
 
 //When /notes is navigated to, the contents of the notes.html file will be displayed.
 app.get('/notes', (req, res) => res.sendFile(path.join(__dirname, '/public/notes.html')));
 
 //reads the information from the db.json file, parses the information and sends the information.
 app.get('/api/notes', function(req, res) {
-    fs.readFile('/db/db.json', (err, data) => {
+    fs.readFile('db/db.json', (err, data) => {
       if (err) {
       throw err;}
       dbData = JSON.parse(data);
       res.send(dbData);
     });
   });
+
+  
+  
+//Sets default path to the contents of the index.html file.
+app.get('*', (req, res) => res.sendFile(path.join(__dirname, '/public/index.html')));
 
 // Starts the server to begin listening
 
