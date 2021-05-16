@@ -25,12 +25,26 @@ app.get('/api/notes', function(req, res) {
     fs.readFile('db/db.json', (err, data) => {
       if (err) {
       throw err;}
-      dbData = JSON.parse(data);
-      res.send(dbData);
+      JSON.parse(data);
+      res.send(data);
     });
   });
 
-  
+  //places inputted information into notes variable.
+  app.post('/api/notes', function(req, res) {
+    const notes = req.body;
+
+    //reads db.json file, parses information and pushes notes variable into the file.
+    fs.readFile('db/db.json', (err, data) => {
+      if (err) throw err;
+      parsedData = JSON.parse(data);
+      parsedData.push(notes);
+      res.json(notes);
+
+   
+    });
+    
+  });
   
 //Sets default path to the contents of the index.html file.
 app.get('*', (req, res) => res.sendFile(path.join(__dirname, '/public/index.html')));
